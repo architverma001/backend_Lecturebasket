@@ -24,6 +24,26 @@ export const generatepayment = asyncHandler( async (req, res) => {
     })
 })
 
+export const validatePayment = asyncHandler( async (req, res) => {
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body
+
+    if(!razorpay_order_id || !razorpay_payment_id || !razorpay_signature){
+        throw new CustomError("Pass the correct values !",400)
+    }
+    const paymentData = {
+        razorpay_order_id: order.id,
+        razorpay_payment_id,
+        razorpay_signature: razorpay_signature,
+    };
+
+    await verifyPayment(paymentData)
+
+    res.status(200).json({
+        success: true,
+        message: "Verifed"
+    })
+
+})
 
 // const paymentData = {
 //         razorpay_order_id: order.id,
