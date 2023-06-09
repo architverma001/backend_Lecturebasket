@@ -31,9 +31,9 @@ export const validatePayment = asyncHandler( async (req, res) => {
         throw new CustomError("Pass the correct values !",400)
     }
     const paymentData = {
-        razorpay_order_id: order.id,
+        razorpay_order_id,
         razorpay_payment_id,
-        razorpay_signature: razorpay_signature,
+        razorpay_signature,
     };
 
     await verifyPayment(paymentData)
